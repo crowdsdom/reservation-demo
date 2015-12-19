@@ -184,21 +184,18 @@
                             <label for="address" class="col-sm-2 col-xs-12 control-label">打掃地址</label>
                             <div id="twzipcode" class="col-sm-10 col-xs-12" style="display: inline-block;">
                                 <div id="zipcode" data-role="zipcode" data-style="formControl addressZipcode"
-                                     placeholder="郵遞區號" data-value=""><input type="text" name="zipcode" readonly=""
-                                                                             class="formControl addressZipcode"></div>
+                                      data-value=""><input type="text" name="zipcode" readonly="true"
+                                                                             class="formControl addressZipcode" ng-model="data.address.districtSelected.postal"></div>
                                 <div data-role="county" data-style="formControl addressCounty"><select name="county"
-                                                                                                       class="formControl addressCounty">
-                                    <option value="">縣市</option>
+                                                                                                       class="formControl addressCounty" readonly="true">
                                     <option value="台北市">台北市</option>
-                                    <option value="新北市">新北市</option>
-                                    <option value="新竹市">新竹市</option>
-                                    <option value="新竹縣">新竹縣</option>
-                                    <option value="台中市">台中市</option>
                                 </select></div>
-                                <div data-role="district" data-style="formControl addressDistrict"><select
-                                        name="district" class="formControl addressDistrict">
-                                    <option value="">鄉鎮市區</option>
-                                </select></div>
+                                <div data-role="district" data-style="formControl addressDistrict">
+                                    <select name="district" class="formControl addressDistrict"
+                                            ng-model="data.address.districtSelected"
+                                            ng-options="option.name for option in data.address.district">
+                                    </select>
+                                </div>
                                 <input name="address" type="text" class="formControl address" id="address"
                                        placeholder="請填上正確的地址" value="">
                                 <input name="regionAvailable" type="hidden" value="true">
@@ -213,7 +210,7 @@
                             <label for="name" class="col-sm-2 col-xs-12 control-label">姓名</label>
                             <div class="col-sm-10 col-xs-12">
                                 <input type="text" class="formControl" name="name" id="name"
-                                       placeholder="請輸入您的名稱，如:陳美莉小姐" value="Peter Chung">
+                                       placeholder="請輸入您的名稱，如:陳美莉小姐" ng-model="data.name">
                                 <p class="errorMsg" data-target="name">請填上正確的姓名</p>
                             </div>
                         </div>
@@ -221,7 +218,7 @@
                             <label for="phone" class="col-sm-2 col-xs-12 control-label">聯絡手機</label>
                             <div class="col-sm-10 col-xs-12">
                                 <input type="text" class="formControl" name="phone" id="phone"
-                                       placeholder="請輸入正確的手機，如:0912345678" value="">
+                                       placeholder="請輸入正確的手機，如:0912345678" ng-model="data.phone">
                                 <p class="errorMsg" data-target="phone">請正確填寫您的聯絡手機</p>
                                 <p class="errorMsg" data-target="phoneFormat">聯絡手機的格式錯誤 例:0912345678</p>
                             </div>
@@ -230,7 +227,7 @@
                             <label for="email" class="col-sm-2 col-xs-12 control-label">電子信箱</label>
                             <div class="col-sm-10 col-xs-12">
                                 <input type="email" name="email" class="formControl" id="email"
-                                       placeholder="請輸入email，如:example@gmail.com" value="touhonoob@gmail.com">
+                                       placeholder="請輸入email，如:example@gmail.com" ng-model="data.email">
                                 <p class="errorMsg" data-target="email">請填上正確的電子郵件信箱。</p>
                             </div>
                         </div>
@@ -243,27 +240,6 @@
                     </div>
 
                     <div id="thirdStep" ng-if="progressService.progress == 3">
-                        <p class="pull-left" style="line-height:34px;">目前您要的時間不能預約？您可以試著調整一下服務時間喔！</p>
-                        <div class="pull-left">
-                            <div class="formGroup" id="selectNumArea" style="display:none;">
-                                服務人數:<input type="radio" name="num" value="1">1位
-                                <input type="radio" name="num" value="2">2位
-                            </div>
-                            <div class="formGroup" id="reSelectHourArea">
-                                <div class="choiceHour" data-reselect="true"><select name="choiceHour"
-                                                                                     class="formControl selectedHour">
-                                    <option value="3" selected="">3小時</option>
-                                    <option value="3.5">3.5小時</option>
-                                    <option value="4">4小時</option>
-                                    <option value="4.5">4.5小時</option>
-                                    <option value="5">5小時</option>
-                                    <option value="5.5">5.5小時</option>
-                                    <option value="6">6小時</option>
-                                    <option value="6.5">6.5小時</option>
-                                    <option value="7">7小時</option>
-                                </select></div>
-                            </div>
-                        </div>
                         <div id="appointArea" class="clear" style="display:none">
                             <input type="radio" name="appointCleaner" value="0" class="css-checkbox" checked="">
                         </div>

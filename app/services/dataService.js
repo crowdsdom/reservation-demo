@@ -95,27 +95,15 @@ angular.module('myApp.services.dataService', [])
         this.tools = 1;
 
         /********* Step 2 *********/
-            // 打掃地址
+        // 打掃地址
         this.address = {
-            postalCode: "111",
+            postal: "111",
             city: "台北市",
-            district: {
-                '台北市': {
-                    '中正區': '100',
-                    '大同區': '103',
-                    '中山區': '104',
-                    '松山區': '105',
-                    '大安區': '106',
-                    '萬華區': '108',
-                    '信義區': '110',
-                    '士林區': '111',
-                    '北投區': '112',
-                    '內湖區': '114',
-                    '南港區': '115',
-                    '文山區': '116'
-                }
-            }
+            district: [
+                {name:'中正區', postal: '100'}, {name:'大同區', postal: '103'}, {name:'中山區', postal: '104'}, {name:'松山區', postal: '105'}, {name:'大安區', postal: '106'}, {name:'萬華區', postal: '108'}, {name:'信義區', postal: '110'}, {name:'士林區', postal: '111'}, {name:'北投區', postal: '112'}, {name:'內湖區', postal: '114'}, {name:'南港區', postal: '115'}, {name:'文山區', postal: '116'},
+            ]
         };
+        this.address.districtSelected = this.address.district[0];
 
         this.name = "Peter Chung";
 
