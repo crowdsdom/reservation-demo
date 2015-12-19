@@ -18,16 +18,16 @@ angular.module('myApp.progress', [])
                 }, update);
 
                 function update() {
+                    $elm.removeClass('done');
+                    $elm.removeClass('active');
+                    $elm.prev('.bar').removeClass('active')
+
                     if (progressService.progress == progress) {
                         $elm.addClass('active');
                         $elm.prev('.bar').addClass('active')
                     } else if (progressService.progress > progress) {
-                        $elm.removeClass('active');
                         $elm.addClass('done');
                         $elm.prev('.bar').addClass('active')
-                    } else {
-                        $elm.removeClass('active');
-                        $elm.prev('.bar').removeClass('active')
                     }
                 }
             }

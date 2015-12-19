@@ -56,7 +56,7 @@
 
                 <form id="bookForm" role="form">
 
-                    <div id="firstStep" style="display: block;">
+                    <div id="firstStep" ng-if="progressService.progress == 1">
                         <div class="formGroup">
                             <label for="bedrooms" class="col-xs-12 col-sm-3 control-label">房間數量
                                 <p style="font-size:12px;">★估時已包含客廳廚房等區域</p>
@@ -175,11 +175,11 @@
                         </div>
                         <hr style="margin: 10px 0;">
                         <div class="formGroup text-center">
-                            <a type="button" class="btn btnOrange btnNormal" id="firstStepBtn">下一步</a>
+                            <a type="button" class="btn btnOrange btnNormal" id="firstStepBtn" ng-click="progressService.progress = 2">下一步</a>
                         </div>
                     </div>
 
-                    <div id="sndStep" style="display: none;">
+                    <div id="sndStep" ng-if="progressService.progress == 2">
                         <div class="formGroup">
                             <label for="address" class="col-sm-2 col-xs-12 control-label">打掃地址</label>
                             <div id="twzipcode" class="col-sm-10 col-xs-12" style="display: inline-block;">
@@ -236,13 +236,13 @@
                         </div>
                         <div class="formGroup text-center">
                             <div class="flexInlin">
-                                <a class="btn btnOrange btnNormal pull-left mR5" id="preSndStepBtn">上一步</a>
-                                <a class="btn btnOrange btnNormal pull-left" id="sndStepBtn">下一步</a>
+                                <a class="btn btnOrange btnNormal pull-left mR5" id="preSndStepBtn" ng-click="progressService.progress=1">上一步</a>
+                                <a class="btn btnOrange btnNormal pull-left" id="sndStepBtn" ng-click="progressService.progress=3">下一步</a>
                             </div>
                         </div>
                     </div>
 
-                    <div id="thirdStep" style="display:none;">
+                    <div id="thirdStep" ng-if="progressService.progress == 3">
                         <p class="pull-left" style="line-height:34px;">目前您要的時間不能預約？您可以試著調整一下服務時間喔！</p>
                         <div class="pull-left">
                             <div class="formGroup" id="selectNumArea" style="display:none;">
@@ -294,13 +294,13 @@
                         <input type="hidden" name="candidate" id="candidate">
                         <div class="mT20 text-center">
                             <div class="flexInlin">
-                                <a class=" btn btnOrange btnNormal mR5 pull-left" id="preThirdStepBtn">上一步</a>
-                                <a class=" btn btnOrange btnNormal pull-left" id="thirdStepBtn">下一步</a>
+                                <a class=" btn btnOrange btnNormal mR5 pull-left" id="preThirdStepBtn" ng-click="progressService.progress=2">上一步</a>
+                                <a class=" btn btnOrange btnNormal pull-left" id="thirdStepBtn" ng-click="progressService.progress=4">下一步</a>
                             </div>
                         </div>
                     </div>
 
-                    <div id="fourStep" style="display:none;">
+                    <div id="fourStep" ng-if="progressService.progress == 4">
                         <div class="confirmOrder clear"><!--確認資訊-->
                             <div class="orderBaseInfo">
                                 <h5 class="bookTitle">訂單個人資訊</h5>
@@ -388,7 +388,7 @@
                         </div>
                         <div class="formGroup text-center">
                             <div class="flexInlin">
-                                <a class="btn btnOrange btnNormal mR5 pull-left" id="preFourStepBtn">上一步</a>
+                                <a class="btn btnOrange btnNormal mR5 pull-left" id="preFourStepBtn" ng-click="progressService.progress=3">上一步</a>
                                 <input type="submit" class="btn btnOrange btnNormal pull-left" value="確認送出">
                             </div>
                         </div>

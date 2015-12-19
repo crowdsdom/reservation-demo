@@ -12,6 +12,7 @@ angular.module('myApp', [
 config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/view1'});
 }]).
-run(function ($rootScope, data) {
+run(function ($rootScope, data, progressService) {
     $rootScope.data = data;
+    $rootScope.progressService = progressService;
 });
