@@ -11,8 +11,9 @@
                 selected: "=calendarSelected"
             },
             link: function (scope, element, attrs) {
+                console.log(scope.selected);
                 scope.selected = scope.selected || moment().locale('zh-TW');
-                scope.selected = _removeTime(scope.selected);
+                scope.selected.hour(0).minute(0).second(0).millisecond(0);
                 scope.month = scope.selected.clone();
 
                 var start = scope.selected.clone();
@@ -55,6 +56,8 @@
             done = count++ > 2 && monthIndex !== date.month();
             monthIndex = date.month();
         }
+
+        console.log("buildMonth", scope.weeks);
     }
 
     function _buildWeek(date, month) {

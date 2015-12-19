@@ -18,9 +18,11 @@
         </tr>
         <tr class="week" ng-repeat="week in weeks">
             <td ng-repeat="day in week.days">
-                <a href="javascript:" ng-click="select(day)" ng-if="day.isCurrentMonth" class="choiceDay" ng-class="{
-                                                    'selectedDate': day.date.isSame(selected)
-                                                }">
+                <a href="javascript:"
+                   ng-click="day.isCurrentMonth ? select(day) : null"
+                   class="choiceDay"
+                   ng-class="{'selectedDate': day.date.isSame(selected), 'disabled': !day.isCurrentMonth}"
+                >
                     {{day.number}}
                 </a>
             </td>
