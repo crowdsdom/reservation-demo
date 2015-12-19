@@ -15,8 +15,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
     <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-    <link rel="stylesheet" href="all_include.css">
-    <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="css/all_include.css">
+    <link rel="stylesheet" href="css/app.css">
     <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
@@ -46,11 +46,13 @@
                     <span class="label">4</span>
                     <span class="title">確認</span>
                 </div>
+                <!--
                 <span class="bar"></span>
                 <div class="circle" progress="5">
                     <span class="label">5</span>
                     <span class="title">完成</span>
                 </div>
+                -->
             </div>
             <div class="bookArea">
 
@@ -197,15 +199,13 @@
                                     </select>
                                 </div>
                                 <input name="address" type="text" class="formControl address" id="address"
-                                       placeholder="請填上正確的地址" value="">
+                                       placeholder="請填上正確的地址" value="" ng-model="data.address.road">
                                 <input name="regionAvailable" type="hidden" value="true">
                                 <input name="black" type="hidden" value="false">
                                 <p class="errorMsg" data-target="zipcode">請選擇正確的行政區域</p>
                                 <p class="errorMsg" data-target="address">請填上正確的地址</p>
                             </div>
                         </div>
-                        <div class="col-sm-10 col-xs-12 col-sm-offset-2"><p class="subWord">目前僅限大台北、新竹及台中地區</p></div>
-                        <hr>
                         <div class="formGroup">
                             <label for="name" class="col-sm-2 col-xs-12 control-label">姓名</label>
                             <div class="col-sm-10 col-xs-12">
@@ -260,14 +260,20 @@
                             </ul>
                         </div>
                         <div class="row clear">
-                            <div id="bookCalendar"></div>
+                            <div id="bookCalendar" calendar calendar-selected="data.calendarSelected">
+                            </div>
                         </div>
+
                         <h5 class="clear">可預定時間</h5>
                         <div id="avalibaleDay">
+                            <a class="btn timeSelect" ng-repeat="time in data.timeSlots" ng-class="{
+                                'btnTime': data.timeSlotSelected !== time,
+                                'btnSelectedTime': data.timeSlotSelected === time
+                            }" href="javascript:" ng-click="data.timeSlotSelected = time">
+                                {{time.text}}
+                            </a>
                         </div>
-                        <input type="hidden" name="selectDate" id="selectDate">
-                        <input type="hidden" name="selectTime" id="selectTime">
-                        <input type="hidden" name="candidate" id="candidate">
+
                         <div class="mT20 text-center">
                             <div class="flexInlin">
                                 <a class=" btn btnOrange btnNormal mR5 pull-left" id="preThirdStepBtn" ng-click="progressService.progress=2">上一步</a>
@@ -281,18 +287,26 @@
                             <div class="orderBaseInfo">
                                 <h5 class="bookTitle">訂單個人資訊</h5>
                                 <div class="confirmAddress"><span id="confirmCounty"></span><span
-                                        id="confirmDistrict"></span><span id="confirmAddress"></span></div>
-                                <div class="confirmDetail"><span id="confirmName"></span></div>
-                                <div class="confirmDetail"><span id="confirmPhone"></span></div>
-                                <div class="confirmDetail"><span id="confirmEmail"></span></div>
+                                        id="confirmDistrict"></span><span id="confirmAddress">
+                                    {{data.address.districtSelected.postal}}
+                                    {{data.address.city}}
+                                    {{data.address.districtSelected.name}}
+                                    {{data.address.road}}
+                                </span></div>
+                                <div class="confirmDetail"><span id="confirmName">{{data.name}}</span></div>
+                                <div class="confirmDetail"><span id="confirmPhone">{{data.phone}}</span></div>
+                                <div class="confirmDetail"><span id="confirmEmail">{{data.email}}</span></div>
                             </div>
                             <div class="orderFeeInfo">
                                 <h5 class="bookTitle">預約時間及費用</h5>
                                 <div class="confirmDetail"><span id="confirmSelectDate"></span> <span
-                                        id="confirmSelectTime">13:30</span></div>
+                                        id="confirmSelectTime" ng-if="data.timeSlotSelected && data.calendarSelected">
+                                    {{data.calendarSelected.format('YYYY MMMM Do')}}
+                                    {{data.timeSlotSelected.text}}
+                                </span></div>
 
-                                <div class="confirmDetail">清潔時數：<span id="confirmHour"></span> 小時</div>
-                                <div class="confirmDetail">費用總計：<span id="confirmFee"></span> 元</div>
+                                <div class="confirmDetail">清潔時數：<span id="confirmHour">{{data.hours()}}</span> 小時</div>
+                                <div class="confirmDetail">費用總計：<span id="confirmFee">{{data.total()}}</span> 元</div>
                             </div>
                             <div class="clear">
                                 <div class="orderPsArea w50">
@@ -351,21 +365,11 @@
                         </div>
                         <p id="errReaded" class="bg-danger pAll10 text-center" style="display:none">
                             請閱讀並勾選確認服務條款、隱私權政策及損害賠償內容</p>
-                        <div class="checkbox">
-                            <label>
-                                <input type="checkbox" id="readed" class="mR10">
-                        <span style="width: 98%;">
-                            我已閱讀<a class="link" href="http://www.jackercleaning.com/home/policy"
-                                   target="_blank">服務條款</a>及<a class="link"
-                                                               href="http://www.jackercleaning.com/home/privacy"
-                                                               target="_blank">隱私權政策</a>並了解服務過程不慎導致物件損壞與摔破，釐清相關責任後將負責一定程度賠償，最高理賠一萬元。
-                        </span>
-                            </label>
-                        </div>
+
                         <div class="formGroup text-center">
                             <div class="flexInlin">
                                 <a class="btn btnOrange btnNormal mR5 pull-left" id="preFourStepBtn" ng-click="progressService.progress=3">上一步</a>
-                                <input type="submit" class="btn btnOrange btnNormal pull-left" value="確認送出">
+                                <input type="submit" class="btn btnOrange btnNormal pull-left" value="確認送出" ng-click="submit()">
                             </div>
                         </div>
                     </div>
@@ -389,6 +393,9 @@
                         <h3 class="homeTitle lineTitle text-center">居家清潔</h3>
                     </div>
                     <h4>服務內容</h4>
+                    <div ng-if="calendarSelected !== null">
+                        {{data.calendarSelected.format('YYYY MMMM Do')}}
+                    </div>
                     <div class="confirmBBArea">
                         <span id="confirmBedNum" ng-bind="data.rooms">1</span> 房
                         <span id="confirmBathNum" ng-bind="data.bathRooms">1</span> 衛浴
@@ -453,9 +460,10 @@
     </div>
 </div>
 
-<!-- In production use:
-<script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
--->
+<script src="bower_components/moment/min/moment-with-locales.min.js"></script>
+<script src="bower_components/sweetalert/dist/sweetalert.min.js"></script>
+<link rel="stylesheet" type="text/css" href="bower_components/sweetalert/dist/sweetalert.css">
+
 <script src="bower_components/jquery/dist/jquery.js"></script>
 <script src="bower_components/angular/angular.js"></script>
 <script src="bower_components/angular-route/angular-route.js"></script>
@@ -467,5 +475,6 @@
 <script src="components/version/interpolate-filter.js"></script>
 <script src="components/progress.js"></script>
 <script src="services/dataService.js"></script>
+<script src="components/calendar.js"></script>
 </body>
 </html>

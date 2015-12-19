@@ -7,7 +7,8 @@ angular.module('myApp', [
     'myApp.view1',
     'myApp.view2',
     'myApp.version',
-    'myApp.progress'
+    'myApp.progress',
+    'myApp.calendar'
 ]).
 config(['$routeProvider', function ($routeProvider) {
     $routeProvider.otherwise({redirectTo: '/view1'});
@@ -15,4 +16,9 @@ config(['$routeProvider', function ($routeProvider) {
 run(function ($rootScope, data, progressService) {
     $rootScope.data = data;
     $rootScope.progressService = progressService;
+    $rootScope.submit = function () {
+        swal("預約成功!",
+            "",
+            "success");
+    };
 });

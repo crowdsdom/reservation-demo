@@ -101,7 +101,8 @@ angular.module('myApp.services.dataService', [])
             city: "台北市",
             district: [
                 {name:'中正區', postal: '100'}, {name:'大同區', postal: '103'}, {name:'中山區', postal: '104'}, {name:'松山區', postal: '105'}, {name:'大安區', postal: '106'}, {name:'萬華區', postal: '108'}, {name:'信義區', postal: '110'}, {name:'士林區', postal: '111'}, {name:'北投區', postal: '112'}, {name:'內湖區', postal: '114'}, {name:'南港區', postal: '115'}, {name:'文山區', postal: '116'},
-            ]
+            ],
+            road: ""
         };
         this.address.districtSelected = this.address.district[0];
 
@@ -110,4 +111,12 @@ angular.module('myApp.services.dataService', [])
         this.phone = "0972146598";
 
         this.email = "touhonoob@gmail.com";
+
+        /********** Step 3 ************/
+        this.calendarSelected = null;
+
+        this.timeSlots = [
+            {text: '09:00'}, {text: '14:30'}, {text: '15:00'}, {text: '15:30'}, {text: '16:00'}, {text: '16:30'}, {text: '17:00'}, {text: '17:30'}, {text: '18:00'}, {text: '18:30'}
+        ];
+        this.timeSlotSelected = this.timeSlots[0];
     });
